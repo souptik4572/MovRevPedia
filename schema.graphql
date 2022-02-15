@@ -8,13 +8,35 @@ type AuthPayload {
   user: User!
 }
 
+type MovieReview {
+  id: String!
+  name: String!
+  rating: Int!
+  review: String!
+  reviewedBy: User
+}
+
+type MovieReviewFeed {
+  message: String
+  movieReviews: [MovieReview!]!
+  reviewCount: Int!
+}
+
+type MovieReviewResponseType {
+  message: String!
+  movie: MovieReview!
+}
+
 type Mutation {
+  createMovieReview(name: String!, rating: Int!, review: String!): MovieReviewResponseType!
+  deleteMovieReview(id: String!): MovieReviewResponseType!
+  editMovieReview(id: String!, name: String, rating: Int, review: String): MovieReviewResponseType!
   loginUser(email: String!, password: String!): AuthPayload!
   registerUser(email: String!, name: String!, password: String!): AuthPayload!
 }
 
 type Query {
-  ok: Boolean!
+  getAllMovieReviews: MovieReviewFeed
 }
 
 type User {

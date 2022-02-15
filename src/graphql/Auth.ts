@@ -5,11 +5,11 @@ import { createJwt } from '../utils/createJwt';
 export const AuthPayload = objectType({
 	name: 'AuthPayload',
 	definition(t) {
-		t.nullable.string('message'),
-			t.nonNull.string('token'),
-			t.nonNull.field('user', {
-				type: 'User',
-			});
+		t.nullable.string('message');
+		t.nonNull.string('token');
+		t.nonNull.field('user', {
+			type: 'User',
+		});
 	},
 });
 
