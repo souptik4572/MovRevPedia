@@ -14,6 +14,7 @@ type MovieReview {
   rating: Int!
   review: String!
   reviewedBy: User
+  voters: [User!]!
 }
 
 type MovieReviewFeed {
@@ -37,10 +38,23 @@ type Mutation {
 
 type Query {
   getAllMovieReviews: MovieReviewFeed
+  getUserProfile: User
 }
 
 type User {
   email: String!
   id: String!
+  movieReviews: [MovieReview!]!
   name: String!
+}
+
+type Vote {
+  movieReview: MovieReview!
+  user: User!
+  voteType: VoteType!
+}
+
+enum VoteType {
+  DOWN_VOTE
+  UP_VOTE
 }
