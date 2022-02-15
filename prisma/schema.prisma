@@ -17,7 +17,8 @@ model User {
   email        String        @unique
   password     String
   movieReviews MovieReview[] @relation(name: "ReviewedBy")
-  votes        MovieReview[] @relation(name: "Voters")
+  upVotes      MovieReview[] @relation(name: "UpVoters")
+  downVotes    MovieReview[] @relation(name: "DownVoters")
 }
 
 model MovieReview {
@@ -29,5 +30,6 @@ model MovieReview {
   updatedAt  DateTime @updatedAt
   reviewedBy User     @relation(name: "ReviewedBy", fields: [userId], references: [id])
   userId     String   @db.ObjectId
-  voters     User[]   @relation(name: "Voters")
+  upVoters   User[]   @relation(name: "UpVoters")
+  downVoters User[]   @relation(name: "DownVoters")
 }

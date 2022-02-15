@@ -14,7 +14,6 @@ type MovieReview {
   rating: Int!
   review: String!
   reviewedBy: User
-  voters: [User!]!
 }
 
 type MovieReviewFeed {
@@ -34,6 +33,7 @@ type Mutation {
   editMovieReview(id: String!, name: String, rating: Int, review: String): MovieReviewResponseType!
   loginUser(email: String!, password: String!): AuthPayload!
   registerUser(email: String!, name: String!, password: String!): AuthPayload!
+  upVoteMovieReview(movieReviewId: String!): Vote
 }
 
 type Query {
@@ -42,19 +42,20 @@ type Query {
 }
 
 type User {
+  downVotes: [Vote!]!
   email: String!
   id: String!
   movieReviews: [MovieReview!]!
   name: String!
+  upVotes: [Vote!]!
 }
 
 type Vote {
   movieReview: MovieReview!
   user: User!
-  voteType: VoteType!
 }
 
-enum VoteType {
-  DOWN_VOTE
-  UP_VOTE
+type VoteMessage {
+  message: String
+  vote: Vote!
 }

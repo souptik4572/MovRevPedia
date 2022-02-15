@@ -40,18 +40,6 @@ export const MovieReview = objectType({
 					.reviewedBy();
 			},
 		});
-		t.nonNull.list.nonNull.field('voters', {
-			type: 'User',
-			resolve(parent, args, context, info) {
-				return context.prisma.movieReview
-					.findUnique({
-						where: {
-							id: parent.id,
-						},
-					})
-					.voters();
-			},
-		});
 	},
 });
 

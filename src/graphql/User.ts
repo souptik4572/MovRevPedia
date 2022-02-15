@@ -18,6 +18,30 @@ export const User = objectType({
 					.movieReviews();
 			},
 		});
+		t.nonNull.list.nonNull.field('upVotes', {
+			type: 'Vote',
+			resolve(parent, args, context, info) {
+				return context.prisma.user
+					.findUnique({
+						where: {
+							id: parent.id,
+						},
+					})
+					.upVotes();
+			},
+		});
+		t.nonNull.list.nonNull.field('downVotes', {
+			type: 'Vote',
+			resolve(parent, args, context, info) {
+				return context.prisma.user
+					.findUnique({
+						where: {
+							id: parent.id,
+						},
+					})
+					.downVotes();
+			},
+		});
 	},
 });
 
