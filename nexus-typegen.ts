@@ -83,12 +83,13 @@ export interface NexusGenFieldTypes {
     user: NexusGenRootTypes['User']; // User!
   }
   MovieReview: { // field return type
+    downVoteCount: number | null; // Int
     id: string; // String!
     name: string; // String!
     rating: number; // Int!
     review: string; // String!
     reviewedBy: NexusGenRootTypes['User'] | null; // User
-    upVoters: NexusGenRootTypes['User'][]; // [User!]!
+    upVoteCount: number | null; // Int
   }
   MovieReviewFeed: { // field return type
     message: string | null; // String
@@ -102,6 +103,7 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     createMovieReview: NexusGenRootTypes['MovieReviewResponseType']; // MovieReviewResponseType!
     deleteMovieReview: NexusGenRootTypes['MovieReviewResponseType']; // MovieReviewResponseType!
+    downVoteMovieReview: NexusGenRootTypes['VoteResponseType']; // VoteResponseType!
     editMovieReview: NexusGenRootTypes['MovieReviewResponseType']; // MovieReviewResponseType!
     loginUser: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     registerUser: NexusGenRootTypes['AuthPayload']; // AuthPayload!
@@ -109,10 +111,12 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     getAllMovieReviews: NexusGenRootTypes['MovieReviewFeed'] | null; // MovieReviewFeed
+    getUserProfile: NexusGenRootTypes['User'] | null; // User
   }
   User: { // field return type
     email: string; // String!
     id: string; // String!
+    movieReviews: NexusGenRootTypes['MovieReview'][]; // [MovieReview!]!
     name: string; // String!
   }
   Vote: { // field return type
@@ -133,12 +137,13 @@ export interface NexusGenFieldTypeNames {
     user: 'User'
   }
   MovieReview: { // field return type name
+    downVoteCount: 'Int'
     id: 'String'
     name: 'String'
     rating: 'Int'
     review: 'String'
     reviewedBy: 'User'
-    upVoters: 'User'
+    upVoteCount: 'Int'
   }
   MovieReviewFeed: { // field return type name
     message: 'String'
@@ -152,6 +157,7 @@ export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     createMovieReview: 'MovieReviewResponseType'
     deleteMovieReview: 'MovieReviewResponseType'
+    downVoteMovieReview: 'VoteResponseType'
     editMovieReview: 'MovieReviewResponseType'
     loginUser: 'AuthPayload'
     registerUser: 'AuthPayload'
@@ -159,10 +165,12 @@ export interface NexusGenFieldTypeNames {
   }
   Query: { // field return type name
     getAllMovieReviews: 'MovieReviewFeed'
+    getUserProfile: 'User'
   }
   User: { // field return type name
     email: 'String'
     id: 'String'
+    movieReviews: 'MovieReview'
     name: 'String'
   }
   Vote: { // field return type name
@@ -185,6 +193,9 @@ export interface NexusGenArgTypes {
     }
     deleteMovieReview: { // args
       id: string; // String!
+    }
+    downVoteMovieReview: { // args
+      movieReviewId: string; // String!
     }
     editMovieReview: { // args
       id: string; // String!

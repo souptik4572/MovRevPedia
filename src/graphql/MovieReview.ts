@@ -40,16 +40,30 @@ export const MovieReview = objectType({
 					.reviewedBy();
 			},
 		});
-		t.nonNull.list.nonNull.field('upVoters', {
-			type: 'User',
-			resolve(parent, args, context, info) {
-				return context.prisma.movieReview
-					.findUnique({
-						where: {
-							id: parent.id,
-						},
-					})
-					.upVoters();
+		t.int('upVoteCount', {
+			async resolve(parent, args, context, info) {
+				return (
+					await context.prisma.movieReview
+						.findUnique({
+							where: {
+								id: parent.id,
+							},
+						})
+						.upVoters()
+				).length;
+			},
+		});
+		t.int('downVoteCount', {
+			async resolve(parent, args, context, info) {
+				return (
+					await context.prisma.movieReview
+						.findUnique({
+							where: {
+								id: parent.id,
+							},
+						})
+						.downVoters()
+				).length;
 			},
 		});
 	},
@@ -120,7 +134,7 @@ export const MovieReviewMutation = extendType({
 				if (!!!userId) throw new Error('Cannot edit movie review without logging in');
 				const isLoggedInUserOwner = await prisma.movieReview.findFirst({
 					where: {
-						userId,
+						reviewedByUserId: userId,
 					},
 				});
 				if (!!!isLoggedInUserOwner)
@@ -159,7 +173,7 @@ export const MovieReviewMutation = extendType({
 				if (!!!userId) throw new Error('Cannot delete movie review without logging in');
 				const isLoggedInUserOwner = await prisma.movieReview.findFirst({
 					where: {
-						userId,
+						reviewedByUserId: userId,
 					},
 				});
 				if (!!!isLoggedInUserOwner)
