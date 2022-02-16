@@ -14,6 +14,7 @@ type MovieReview {
   rating: Int!
   review: String!
   reviewedBy: User
+  upVoters: [User!]!
 }
 
 type MovieReviewFeed {
@@ -33,6 +34,7 @@ type Mutation {
   editMovieReview(id: String!, name: String, rating: Int, review: String): MovieReviewResponseType!
   loginUser(email: String!, password: String!): AuthPayload!
   registerUser(email: String!, name: String!, password: String!): AuthPayload!
+  upVoteMovieReview(movieReviewId: String!): VoteResponseType!
 }
 
 type Query {
@@ -43,4 +45,15 @@ type User {
   email: String!
   id: String!
   name: String!
+}
+
+type Vote {
+  movieReview: MovieReview!
+  user: User!
+}
+
+type VoteResponseType {
+  message: String
+  movieReview: MovieReview!
+  user: User
 }
