@@ -1,17 +1,6 @@
-import { extendType, nonNull, objectType, stringArg } from 'nexus';
+import { extendType, nonNull, stringArg } from 'nexus';
 import bcrypt from 'bcryptjs';
-import { createJwt } from '../utils/createJwt';
-
-export const AuthPayload = objectType({
-	name: 'AuthPayload',
-	definition(t) {
-		t.nullable.string('message');
-		t.nonNull.string('token');
-		t.nonNull.field('user', {
-			type: 'User',
-		});
-	},
-});
+import { createJwt } from '../../utils/createJwt';
 
 export const AuthMutation = extendType({
 	type: 'Mutation',
