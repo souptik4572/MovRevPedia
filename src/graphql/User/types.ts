@@ -1,4 +1,5 @@
 import { objectType } from 'nexus';
+import { resolve } from 'path/posix';
 
 export const User = objectType({
 	name: 'User',
@@ -16,6 +17,30 @@ export const User = objectType({
 						},
 					})
 					.movieReviews();
+			},
+		});
+		t.nonNull.list.nonNull.field('upVotedMovieReviews', {
+			type: 'MovieReview',
+			resolve(parent, args, context, info) {
+				return context.prisma.user
+					.findUnique({
+						where: {
+							id: parent.id,
+						},
+					})
+					.upVotes();
+			},
+		});
+		t.nonNull.list.nonNull.field('downVotedMovieReviews', {
+			type: 'MovieReview',
+			resolve(parent, args, context, info) {
+				return context.prisma.user
+					.findUnique({
+						where: {
+							id: parent.id,
+						},
+					})
+					.downVotes();
 			},
 		});
 	},

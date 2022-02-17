@@ -114,10 +114,12 @@ export interface NexusGenFieldTypes {
     getUserProfile: NexusGenRootTypes['User'] | null; // User
   }
   User: { // field return type
+    downVotedMovieReviews: NexusGenRootTypes['MovieReview'][]; // [MovieReview!]!
     email: string; // String!
     id: string; // String!
     movieReviews: NexusGenRootTypes['MovieReview'][]; // [MovieReview!]!
     name: string; // String!
+    upVotedMovieReviews: NexusGenRootTypes['MovieReview'][]; // [MovieReview!]!
   }
   Vote: { // field return type
     movieReview: NexusGenRootTypes['MovieReview']; // MovieReview!
@@ -168,10 +170,12 @@ export interface NexusGenFieldTypeNames {
     getUserProfile: 'User'
   }
   User: { // field return type name
+    downVotedMovieReviews: 'MovieReview'
     email: 'String'
     id: 'String'
     movieReviews: 'MovieReview'
     name: 'String'
+    upVotedMovieReviews: 'MovieReview'
   }
   Vote: { // field return type name
     movieReview: 'MovieReview'

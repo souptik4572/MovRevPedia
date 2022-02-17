@@ -45,10 +45,12 @@ type Query {
 }
 
 type User {
+  downVotedMovieReviews: [MovieReview!]!
   email: String!
   id: String!
   movieReviews: [MovieReview!]!
   name: String!
+  upVotedMovieReviews: [MovieReview!]!
 }
 
 type Vote {

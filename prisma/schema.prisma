@@ -17,6 +17,7 @@ model User {
   email        String        @unique
   password     String
   movieReviews MovieReview[]
+  comments     Comment[]
   upVoteIDs    String[]      @db.Array(ObjectId)
   upVotes      MovieReview[] @relation(name: "UpVotes", fields: [upVoteIDs])
   downVoteIDs  String[]      @db.Array(ObjectId)
@@ -24,16 +25,25 @@ model User {
 }
 
 model MovieReview {
-  id           String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  name         String
-  review       String
-  rating       Int
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  reviewedBy   User     @relation(fields: [reviewedByUserId], references: [id])
-  reviewedByUserId       String   @db.ObjectId
-  upVoterIDs   String[] @db.Array(ObjectId)
-  upVoters     User[]   @relation(name: "UpVotes", fields: [upVoterIDs])
-  downVoterIDs String[] @db.Array(ObjectId)
-  downVoters   User[]   @relation(name: "DownVotes", fields: [downVoterIDs])
+  id               String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  name             String
+  review           String
+  rating           Int
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  reviewedBy       User     @relation(fields: [reviewedByUserId], references: [id])
+  reviewedByUserId String   @db.ObjectId
+  upVoterIDs       String[] @db.Array(ObjectId)
+  upVoters         User[]   @relation(name: "UpVotes", fields: [upVoterIDs])
+  downVoterIDs     String[] @db.Array(ObjectId)
+  downVoters       User[]   @relation(name: "DownVotes", fields: [downVoterIDs])
+}
+
+model Comment {
+  id              String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  text            String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  createdByUserId String   @db.ObjectId
+  createdBy       User     @relation(fields: [createdByUserId], references: [id])
 }
